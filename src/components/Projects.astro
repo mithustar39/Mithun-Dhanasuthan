@@ -1,0 +1,97 @@
+---
+import { siteConfig } from "../config";
+const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
+---
+
+{
+  hasProjects && (
+    <section id="projects" class="p-8 sm:p-12 md:p-16 lg:p-24">
+      <div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+          <div class="lg:col-span-4">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl xl:text-6xl font-bold text-gray-900">
+              Projects
+            </h2>
+            <div
+              class="w-[75px] h-[5px] mt-2 rounded-full"
+              style={`background-color: ${siteConfig.accentColor}`}
+            />
+          </div>
+
+          <div class="lg:col-span-8">
+            <div class="space-y-8">
+              {siteConfig.projects.map((project, index) => (
+                <div class="group relative">
+                  <div
+                    class={`block relative p-4 sm:p-6 md:p-8 bg-gray-50 rounded-xl sm:rounded-2xl border border-gray-200 transition-all duration-300 ${
+                      project.link || project.devpostLink
+                        ? "hover:bg-white hover:shadow-xl hover:border-gray-300 hover:-translate-y-1"
+                        : ""
+                    }`}
+                  >
+                    <div class="space-y-4">
+                      <div>
+                        <span
+                          class="text-xs font-mono"
+                          style={{ color: siteConfig.accentColor }}
+                        >
+                          0{index + 1}
+                        </span>
+                        <h3 class="text-lg sm:text-xl font-bold text-gray-900 mt-1">
+                          {project.name}
+                        </h3>
+                      </div>
+
+                      <p class="text-sm sm:text-base text-gray-600 leading-relaxed break-words">
+                        {project.description}
+                      </p>
+
+                      {project.skills && project.skills.length > 0 && (
+                        <div class="flex flex-wrap gap-1.5 sm:gap-2 pt-2">
+                          {project.skills.map((skill) => (
+                            <span
+                              class="px-2.5 sm:px-3 py-1 sm:py-1.5 bg-gray-900 text-white rounded-md sm:rounded-lg text-xs sm:text-sm font-medium transition-all duration-300 group-hover:bg-gray-800"
+                            >
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+
+                      {(project.link || project.devpostLink) && (
+                        <div class="flex flex-wrap gap-4 pt-3 text-xs sm:text-sm">
+                          {project.link && (
+                            <a
+                              href={project.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              class="font-medium hover:underline"
+                              style={`color: ${siteConfig.accentColor}`}
+                            >
+                              View code →
+                            </a>
+                          )}
+                          {project.devpostLink && (
+                            <a
+                              href={project.devpostLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              class="font-medium hover:underline"
+                              style={`color: ${siteConfig.accentColor}`}
+                            >
+                              View on Devpost →
+                            </a>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
